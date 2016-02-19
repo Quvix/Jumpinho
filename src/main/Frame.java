@@ -1,0 +1,24 @@
+package main;
+
+import java.awt.Canvas;
+import java.awt.Dimension;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author Jakub Vitásek & Matěj Stuchlík
+ */
+public class Frame extends Canvas{
+    JFrame frame;
+    public Frame (int width, int height, String title, GamePanel game) {
+        frame = new JFrame(title);
+        frame.setMinimumSize(new Dimension(width / 2, height / 2));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setLocationRelativeTo(null);
+        game.setPreferredSize(new Dimension(width, height));
+        frame.add(game);
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
