@@ -21,4 +21,15 @@ public class Frame extends Canvas{
         frame.pack();
         frame.setVisible(true);
     }
+    
+    void makeFullscreen(boolean full) {
+        frame.dispose();
+        frame.setResizable(!full);
+        frame.setUndecorated(full);
+        if(full)
+            frame.setExtendedState(JFrame.MAXIMIZED_BOTH); 
+        else
+            frame.pack();
+        frame.setVisible(true);
+    }
 }

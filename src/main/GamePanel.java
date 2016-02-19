@@ -4,12 +4,14 @@ import Input.KeyInput;
 import Input.MouseInput;
 import Input.MouseWheelMoved;
 import gamestates.GameStateManager;
+import java.awt.AlphaComposite;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
 /**
@@ -32,7 +34,8 @@ public class GamePanel extends Canvas implements Runnable {
     }
     
     private void init(){
-        f = new Frame(size.width, size.height, "Cubic Madness", this);
+        f = new Frame(size.width, size.height, "Jumpinho", this);
+        //f.makeFullscreen(true);
         this.setBackground(Color.white);
         this.setForeground(Color.black);
         this.setFocusable(true);
@@ -85,6 +88,7 @@ public class GamePanel extends Canvas implements Runnable {
     }
     
     private void gameTick(){
+        
         gsm.tick();
     }
     
@@ -99,6 +103,19 @@ public class GamePanel extends Canvas implements Runnable {
         
         g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
         
+        g.setColor(Color.BLACK);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        
+        AffineTransform at = new AffineTransform();
+        double scale = Math.min(this.getWidth() / this.size.getWidth(), this.getHeight() / this.size.getHeight());
+        double xOff = (this.getWidth() - this.size.width * scale) / 2f;
+        if(this.getWidth() / this.size.getWidth() < this.getHeight() / this.size.getHeight()){
+            xOff = 0;
+        }
+        at.translate(xOff, 0);
+        at.scale(scale, scale);
+        g.setTransform(at);
+        
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.size.width, this.size.height);
         
@@ -110,6 +127,13 @@ public class GamePanel extends Canvas implements Runnable {
         //g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         
         gsm.draw(g, interpolation);
+        
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+        g.setColor(Color.BLACK);
+        g.fillRect(-500, 0, 500, this.size.height);
+        g.fillRect(this.size.width, 0, 500, this.size.height);
+        g.fillRect(-500, -1000, size.width + 500, 0);
+        g.fillRect(-500, this.size.height, size.width + 500, 1500);
         
         this.frames++;
         
