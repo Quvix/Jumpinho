@@ -46,4 +46,10 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-nbproject
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
