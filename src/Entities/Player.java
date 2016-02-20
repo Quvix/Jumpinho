@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.util.Set;
 import main.GameObject;
 import main.GamePanel;
+import objects.Tile;
 
 /**
  *
@@ -17,13 +18,14 @@ import main.GamePanel;
 public class Player extends GameObject {
     
     private boolean jumping = false, falling = false;
-    private final float jumpSpeed = -6;
-    private final float maxFallSpeed = 7;
+    private boolean bottomCollisionNextTick = false, topCollisionNextTick = false, leftCollisionNextTick = false, rightCollisionNextTick = false;
+    private final float jumpSpeed = -10;
+    private final float maxFallSpeed = 15;
     
     public Player(GamePanel gp, GameState gs){
         super(gp,gs);
         color = new Color(255, 0, 0);
-        size = 24;
+        size = 32;
         x = gp.size.width / 2 - size / 2;
         y = gp.size.height / 2 - size / 2;
         DEFAULT_SPEED = 8f;
@@ -32,6 +34,10 @@ public class Player extends GameObject {
     
     @Override
     public void tick(){
+        
+        this.x += velX;
+        this.y += velY;
+        
         Set<Integer> key = KeyInput.pressed;
         if(key.contains(KeyEvent.VK_UP)) {
             if(!jumping && !falling) {
@@ -41,26 +47,51 @@ public class Player extends GameObject {
         }
         if(key.contains(KeyEvent.VK_RIGHT)) velX = getSpeed();
         else velX = 0;
-        if(key.contains(KeyEvent.VK_LEFT)) velX = -getSpeed();
+        if(key.contains(KeyEvent.VK_LEFT)) if(!leftCollisionNextTick) velX = -getSpeed();
         
         if(key.contains(KeyEvent.VK_RIGHT) && key.contains(KeyEvent.VK_LEFT)) velX = 0;
-       
-        this.x += velX;
+        
+        if(bottomCollisionNextTick) {
+            if(!jumping) velY = 0;
+            bottomCollisionNextTick = false;
+        }
+        
+        if(topCollisionNextTick) {
+            topCollisionNextTick = false;
+        }
+        
+        if(leftCollisionNextTick) {
+            velX = 0;
+            leftCollisionNextTick = false;
+        }
+        
+        if(rightCollisionNextTick) {
+            velX = 0;
+            rightCollisionNextTick = false;
+        }
+        
         
         if(jumping) {
-            this.y += velY;
-            velY += 0.15;
+            velY += 0.3;
             if(velY >= 0) {
                 jumping = false;
                 falling = true;
-                velY = 0.15f;
+                velY = 0.3f;
             }
         }
         
         if(falling) {
-            this.y += velY;
-            if(velY < maxFallSpeed)
-                velY += 0.15f;
+            if(velY < maxFallSpeed) {
+                if(!bottomCollisionNextTick) {
+                    velY += 0.3f;
+                }
+            }
+                
+        }
+        
+        if(!falling && !jumping) {
+            velY += 0.3f;  
+            falling = true;
         }
         
         // Konec mapy pouze pro test
@@ -81,11 +112,40 @@ public class Player extends GameObject {
             velY = 0;
             falling = false;
         }
-        System.out.println(velY);
+        
+        for(Tile e: gs.objects.tiles){
+            if(this.predictPosition(1).intersects(e.getRect())) {
+                if((this.getRect().y + this.getRect().height - 1) <= e.getRect().y) {
+                    velY = (e.getRect().y - (this.y + this.size));
+                    bottomCollisionNextTick = true;
+                    falling = false;
+                }
+                
+                if((this.getRect().y + 1) >= (e.getRect().y + e.getRect().height)) {
+                    velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
+                    topCollisionNextTick = true;
+                    falling = true;
+                    jumping = false;
+                }
+                
+                if((this.getRect().x + 1) >= (e.getRect().x + e.getRect().width)) {
+                    velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
+                    leftCollisionNextTick = true;
+                }
+                
+                if((this.getRect().x + this.getRect().width - 1) <= e.getRect().x) {
+                    velX = (e.getRect().x - (this.x + this.size));
+                    rightCollisionNextTick = true;
+                }
+            }
+        }
+        
+        
     }
     
     @Override
     public void draw(Graphics2D g, double interpolation){
+        
         super.draw(g, interpolation);
         
         Set<Integer> key = KeyInput.pressed;
@@ -97,6 +157,10 @@ public class Player extends GameObject {
             this.x += velX * interpolation;
             velX = 0;
         }
+    }
+    
+    private Rectangle predictPosition(int ticks){
+        return new Rectangle((int)(this.x + (velX * ticks)), (int)(this.y + (velY * ticks)), this.getIntSize(), this.getIntSize());
     }
 
 }

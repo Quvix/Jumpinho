@@ -1,6 +1,9 @@
 package main;
 
 import Entities.Player;
+import java.util.ArrayList;
+import java.util.List;
+import objects.Tile;
 
 /**
  *
@@ -8,4 +11,5 @@ import Entities.Player;
  */
 public class ObjectHandler {
     public Player player;
+    public List<Tile> tiles = new ArrayList();
 }

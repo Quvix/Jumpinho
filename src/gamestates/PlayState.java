@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import main.GamePanel;
 import main.ObjectHandler;
+import objects.Tile;
 
 /**
  *
@@ -36,6 +37,10 @@ public class PlayState extends GameState {
         if(paused)
             interpolation = 0;
         
+        for(Tile e: this.objects.tiles){
+            e.draw((Graphics2D)g, interpolation);
+        }
+        
         this.objects.player.draw((Graphics2D)g, interpolation);
     }
     
@@ -48,6 +53,11 @@ public class PlayState extends GameState {
     public void init() {
         this.objects = new ObjectHandler();
         objects.player = new Player(gp, this);
+        this.objects.tiles.add(new Tile(150f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(214f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(278f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(342f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(342f, 386f, gp, this));
 
         ticks = 0;
         this.resume();

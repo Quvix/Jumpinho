@@ -11,7 +11,7 @@ import main.ObjectHandler;
 public abstract class GameState {
     
     protected GamePanel gp;
-    protected ObjectHandler objects = new ObjectHandler();
+    public ObjectHandler objects = new ObjectHandler();
     protected boolean paused;
     
     public GameState(GamePanel gp){
