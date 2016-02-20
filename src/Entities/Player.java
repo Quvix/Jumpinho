@@ -95,7 +95,7 @@ public class Player extends GameObject {
         }
         
         // Konec mapy pouze pro test
-        if(this.x < 0) {
+        /*if(this.x < 0) {
             x = 0;
             velX = 0;
         }
@@ -106,11 +106,13 @@ public class Player extends GameObject {
         if(this.y < 0) {
             y = 0;
             velY = 0;
-        }
+        }*/
         if(this.y > gp.size.height - this.size) {
-            y = gp.size.height - this.size;
+            /*y = gp.size.height - this.size;
             velY = 0;
-            falling = false;
+            falling = false;*/
+            x = gp.size.width / 2 - size / 2;
+            y = gp.size.height / 2 - size / 2;
         }
         
         for(Tile e: gs.objects.tiles){

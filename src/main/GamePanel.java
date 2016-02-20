@@ -20,7 +20,7 @@ import java.awt.image.BufferStrategy;
  */
 public class GamePanel extends Canvas implements Runnable {
     
-    public Dimension size = new Dimension(800, 600);
+    public Dimension size = new Dimension(1280, 720);
     
     public GameStateManager gsm;
     private Thread thread;
