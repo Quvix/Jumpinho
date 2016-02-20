@@ -118,8 +118,9 @@ public class GamePanel extends Canvas implements Runnable {
         
         g.setColor(Color.WHITE);
         g.fillRect(0, 0, this.size.width, this.size.height);
+       
         
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        //g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         

@@ -19,8 +19,9 @@ public class Player extends GameObject {
     
     private boolean jumping = false, falling = false;
     private boolean bottomCollisionNextTick = false, topCollisionNextTick = false, leftCollisionNextTick = false, rightCollisionNextTick = false;
-    private final float jumpSpeed = -10;
+    private final float jumpSpeed = -20;
     private final float maxFallSpeed = 15;
+    private final float gravity = 1f;
     
     public Player(GamePanel gp, GameState gs){
         super(gp,gs);
@@ -45,8 +46,7 @@ public class Player extends GameObject {
                 jumping = true;
             }
         }
-        if(key.contains(KeyEvent.VK_RIGHT)) velX = getSpeed();
-        else velX = 0;
+        if(key.contains(KeyEvent.VK_RIGHT)) if(!rightCollisionNextTick) velX = getSpeed();
         if(key.contains(KeyEvent.VK_LEFT)) if(!leftCollisionNextTick) velX = -getSpeed();
         
         if(key.contains(KeyEvent.VK_RIGHT) && key.contains(KeyEvent.VK_LEFT)) velX = 0;
@@ -72,25 +72,25 @@ public class Player extends GameObject {
         
         
         if(jumping) {
-            velY += 0.3;
+            velY += gravity;
             if(velY >= 0) {
                 jumping = false;
                 falling = true;
-                velY = 0.3f;
+                velY = gravity;
             }
         }
         
         if(falling) {
             if(velY < maxFallSpeed) {
                 if(!bottomCollisionNextTick) {
-                    velY += 0.3f;
+                    velY += gravity;
                 }
             }
                 
         }
         
         if(!falling && !jumping) {
-            velY += 0.3f;  
+            velY += gravity;  
             falling = true;
         }
         
@@ -116,17 +116,21 @@ public class Player extends GameObject {
         for(Tile e: gs.objects.tiles){
             if(this.predictPosition(1).intersects(e.getRect())) {
                 
-                if((this.getRect().x + 1) >= (e.getRect().x + e.getRect().width)) {
-                    velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
-                    leftCollisionNextTick = true;
+                if((this.getRect().x + 2) >= (e.getRect().x + e.getRect().width)) {
+                    if(getLeftBounds().intersects(e.getRect())) {
+                        velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
+                        leftCollisionNextTick = true;
+                    }
                 }
                 
-                if((this.getRect().x + this.getRect().width - 1) <= e.getRect().x) {
-                    velX = (e.getRect().x - (this.x + this.size));
-                    rightCollisionNextTick = true;
+                if((this.getRect().x + this.getRect().width - 2) <= e.getRect().x) {
+                    if(getRightBounds().intersects(e.getRect())) {
+                        velX = (e.getRect().x - (this.x + this.size));
+                        rightCollisionNextTick = true;
+                    }
                 }
                 
-                if((this.getRect().y + this.getRect().height - 1) <= e.getRect().y) {
+                if((this.getRect().y + this.getRect().height - 2) <= e.getRect().y) {
                     if(getBottomBounds().intersects(e.getRect())) {
                         velY = (e.getRect().y - (this.y + this.size));
                         bottomCollisionNextTick = true;
@@ -134,7 +138,7 @@ public class Player extends GameObject {
                     }
                 }
                 
-                if((this.getRect().y + 1) >= (e.getRect().y + e.getRect().height)) {
+                if((this.getRect().y + 2) >= (e.getRect().y + e.getRect().height)) {
                     velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
                     topCollisionNextTick = true;
                     falling = true;
@@ -167,7 +171,15 @@ public class Player extends GameObject {
     }
     
     public Rectangle getBottomBounds() {
-        return new Rectangle((int)(this.x), (int)(this.y + 10), this.getIntSize(), this.getIntSize());
+        return new Rectangle((int)(this.x), (int)(this.y + maxFallSpeed), this.getIntSize(), this.getIntSize());
+    }
+    
+    public Rectangle getLeftBounds() {
+        return new Rectangle((int)(this.x - speed), (int)(this.y), this.getIntSize(), this.getIntSize());
+    }
+    
+    public Rectangle getRightBounds() {
+        return new Rectangle((int)(this.x + speed), (int)(this.y), this.getIntSize(), this.getIntSize());
     }
 
 }

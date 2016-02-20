@@ -42,7 +42,7 @@ public class PlayState extends GameState {
             e.draw((Graphics2D)g, interpolation);
         }
         
-        this.xOffset = gp.size.width/2 - objects.player.getX() + objects.player.getSize()/2 - objects.player.getVelX() * interpolation;
+        this.xOffset = Math.floor(gp.size.width/2 - objects.player.getX() + objects.player.getSize()/2 - objects.player.getVelX() * interpolation) ;
         this.objects.player.draw((Graphics2D)g, interpolation);
     }
     
@@ -57,7 +57,7 @@ public class PlayState extends GameState {
         objects.player = new Player(gp, this);
         this.objects.tiles.add(new Tile(150f, 450f, gp, this));
         this.objects.tiles.add(new Tile(214f, 450f, gp, this));
-        this.objects.tiles.add(new Tile(278f, 450f, gp, this));
+        //this.objects.tiles.add(new Tile(278f, 450f, gp, this));
         this.objects.tiles.add(new Tile(342f, 450f, gp, this));
         this.objects.tiles.add(new Tile(342f, 386f, gp, this));
         
