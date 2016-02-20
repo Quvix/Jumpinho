@@ -19,14 +19,14 @@ public class Player extends GameObject {
     
     private boolean jumping = false, falling = false;
     private boolean bottomCollisionNextTick = false, topCollisionNextTick = false, leftCollisionNextTick = false, rightCollisionNextTick = false;
-    private final float jumpSpeed = -20;
-    private final float maxFallSpeed = 15;
-    private final float gravity = 1f;
+    private final float jumpSpeed = -31;
+    private final float maxFallSpeed = 30;
+    private final float gravity = 2f;
     
     public Player(GamePanel gp, GameState gs){
         super(gp,gs);
         color = new Color(255, 0, 0);
-        size = 32;
+        size = 48;
         x = gp.size.width / 2 - size / 2;
         y = gp.size.height / 2 - size / 2;
         DEFAULT_SPEED = 8f;
@@ -117,22 +117,21 @@ public class Player extends GameObject {
         
         for(Tile e: gs.objects.tiles){
             if(this.predictPosition(1).intersects(e.getRect())) {
-                
-                if((this.getRect().x + 2) >= (e.getRect().x + e.getRect().width)) {
+                if((this.getRect().x + 10) >= (e.getRect().x + e.getRect().width)) {
                     if(getLeftBounds().intersects(e.getRect())) {
                         velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
                         leftCollisionNextTick = true;
                     }
                 }
                 
-                if((this.getRect().x + this.getRect().width - 2) <= e.getRect().x) {
+                if((this.getRect().x + this.getRect().width - 10) <= e.getRect().x) {
                     if(getRightBounds().intersects(e.getRect())) {
                         velX = (e.getRect().x - (this.x + this.size));
                         rightCollisionNextTick = true;
                     }
                 }
                 
-                if((this.getRect().y + this.getRect().height - 2) <= e.getRect().y) {
+                if((this.getRect().y + this.getRect().height - 10) <= e.getRect().y) {
                     if(getBottomBounds().intersects(e.getRect())) {
                         velY = (e.getRect().y - (this.y + this.size));
                         bottomCollisionNextTick = true;
@@ -140,7 +139,7 @@ public class Player extends GameObject {
                     }
                 }
                 
-                if((this.getRect().y + 2) >= (e.getRect().y + e.getRect().height)) {
+                if((this.getRect().y + 10) >= (e.getRect().y + e.getRect().height)) {
                     velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
                     topCollisionNextTick = true;
                     falling = true;
@@ -148,8 +147,6 @@ public class Player extends GameObject {
                 }
             }
         }
-        
-        
     }
     
     @Override

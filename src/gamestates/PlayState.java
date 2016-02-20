@@ -55,15 +55,15 @@ public class PlayState extends GameState {
     public void init() {
         this.objects = new ObjectHandler();
         objects.player = new Player(gp, this);
-        this.objects.tiles.add(new Tile(150f, 450f, gp, this));
-        this.objects.tiles.add(new Tile(214f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(150f, 450f + 128f, gp, this));
+        this.objects.tiles.add(new Tile(214f, 450f + 128f, gp, this));
         //this.objects.tiles.add(new Tile(278f, 450f, gp, this));
-        this.objects.tiles.add(new Tile(342f, 450f, gp, this));
-        this.objects.tiles.add(new Tile(342f, 386f, gp, this));
+        this.objects.tiles.add(new Tile(342f, 450f + 128f, gp, this));
+        this.objects.tiles.add(new Tile(342f, 386f + 128f, gp, this));
         
-        this.objects.tiles.add(new Tile(470f, 386f, gp, this));
-        this.objects.tiles.add(new Tile(534f, 450f, gp, this));
-        this.objects.tiles.add(new Tile(534f, 386f, gp, this));
+        this.objects.tiles.add(new Tile(470f, 386f + 128f, gp, this));
+        this.objects.tiles.add(new Tile(534f, 450f + 128f, gp, this));
+        this.objects.tiles.add(new Tile(534f, 386f + 128f, gp, this));
         
          for (int i = 0; i < 20; i++) {
              this.objects.tiles.add(new Tile(i * 64f, 704f, gp, this));
