@@ -16,10 +16,12 @@ import main.GamePanel;
  */
 public class Tile extends GameObject {
     
+    public static final float DEFAULT_SIZE = 64;
+    
     public Tile(float x, float y, GamePanel gp, GameState gs){
         super(gp,gs);
         color = Color.BLACK;
-        size = 64;
+        size = DEFAULT_SIZE;
         this.x = x;
         this.y = y;
         DEFAULT_SPEED = 0f;

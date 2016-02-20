@@ -140,10 +140,12 @@ public class Player extends GameObject {
                 }
                 
                 if((this.getRect().y + 10) >= (e.getRect().y + e.getRect().height)) {
-                    velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
-                    topCollisionNextTick = true;
-                    falling = true;
-                    jumping = false;
+                    if(getTopBounds().intersects(e.getRect())) {
+                       velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
+                        topCollisionNextTick = true;
+                        falling = true;
+                        jumping = false; 
+                    }
                 }
             }
         }
@@ -171,6 +173,10 @@ public class Player extends GameObject {
     
     public Rectangle getBottomBounds() {
         return new Rectangle((int)(this.x), (int)(this.y + maxFallSpeed), this.getIntSize(), this.getIntSize());
+    }
+    
+    public Rectangle getTopBounds() {
+        return new Rectangle((int)(this.x), (int)(this.y - maxFallSpeed), this.getIntSize(), this.getIntSize());
     }
     
     public Rectangle getLeftBounds() {
