@@ -28,6 +28,7 @@ public class PlayState extends GameState {
     public void tick() {
         if(!paused){
             objects.player.tick();
+            
         }
         this.ticks++;
     }
@@ -41,6 +42,7 @@ public class PlayState extends GameState {
             e.draw((Graphics2D)g, interpolation);
         }
         
+        this.xOffset = gp.size.width/2 - objects.player.getX() + objects.player.getSize()/2 - objects.player.getVelX() * interpolation;
         this.objects.player.draw((Graphics2D)g, interpolation);
     }
     

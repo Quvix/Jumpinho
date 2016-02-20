@@ -14,9 +14,15 @@ public abstract class GameState {
     public ObjectHandler objects = new ObjectHandler();
     protected boolean paused;
     
+    public double xOffset, yOffset;
+    
+    
     public GameState(GamePanel gp){
         this.gp = gp;
         paused = false;
+        
+        xOffset = 0;
+        yOffset = 0;
     }
     
     public ObjectHandler getObjects(){

@@ -35,7 +35,7 @@ public abstract class GameObject {
     
     public void draw(Graphics2D g, double interpolation){
         g.setColor(color);
-        g.fill(getRect(interpolation));
+        g.fill(getRect(interpolation, gs.xOffset));
     }
     
     public Rectangle getCollisionBox(){
@@ -48,6 +48,10 @@ public abstract class GameObject {
     
     public Rectangle getRect(double i){
         return new Rectangle((int)(x + (velX * i)), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
+    }
+    
+    public Rectangle getRect(double i, double xOffset){
+        return new Rectangle((int)(x + (velX * i) + xOffset), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
     }
     
     public void tick(){        
