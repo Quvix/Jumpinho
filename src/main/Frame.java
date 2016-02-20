@@ -15,10 +15,10 @@ public class Frame extends Canvas{
         frame.setMinimumSize(new Dimension(width / 2, height / 2));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(true);
-        frame.setLocationRelativeTo(null);
         game.setPreferredSize(new Dimension(width, height));
         frame.add(game);
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     
