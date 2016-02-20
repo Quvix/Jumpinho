@@ -58,6 +58,10 @@ public class PlayState extends GameState {
         this.objects.tiles.add(new Tile(278f, 450f, gp, this));
         this.objects.tiles.add(new Tile(342f, 450f, gp, this));
         this.objects.tiles.add(new Tile(342f, 386f, gp, this));
+        
+        this.objects.tiles.add(new Tile(470f, 386f, gp, this));
+        this.objects.tiles.add(new Tile(534f, 450f, gp, this));
+        this.objects.tiles.add(new Tile(534f, 386f, gp, this));
 
         ticks = 0;
         this.resume();

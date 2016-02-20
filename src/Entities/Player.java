@@ -115,18 +115,6 @@ public class Player extends GameObject {
         
         for(Tile e: gs.objects.tiles){
             if(this.predictPosition(1).intersects(e.getRect())) {
-                if((this.getRect().y + this.getRect().height - 1) <= e.getRect().y) {
-                    velY = (e.getRect().y - (this.y + this.size));
-                    bottomCollisionNextTick = true;
-                    falling = false;
-                }
-                
-                if((this.getRect().y + 1) >= (e.getRect().y + e.getRect().height)) {
-                    velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
-                    topCollisionNextTick = true;
-                    falling = true;
-                    jumping = false;
-                }
                 
                 if((this.getRect().x + 1) >= (e.getRect().x + e.getRect().width)) {
                     velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
@@ -136,6 +124,21 @@ public class Player extends GameObject {
                 if((this.getRect().x + this.getRect().width - 1) <= e.getRect().x) {
                     velX = (e.getRect().x - (this.x + this.size));
                     rightCollisionNextTick = true;
+                }
+                
+                if((this.getRect().y + this.getRect().height - 1) <= e.getRect().y) {
+                    if(getBottomBounds().intersects(e.getRect())) {
+                        velY = (e.getRect().y - (this.y + this.size));
+                        bottomCollisionNextTick = true;
+                        falling = false;
+                    }
+                }
+                
+                if((this.getRect().y + 1) >= (e.getRect().y + e.getRect().height)) {
+                    velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
+                    topCollisionNextTick = true;
+                    falling = true;
+                    jumping = false;
                 }
             }
         }
@@ -161,6 +164,10 @@ public class Player extends GameObject {
     
     private Rectangle predictPosition(int ticks){
         return new Rectangle((int)(this.x + (velX * ticks)), (int)(this.y + (velY * ticks)), this.getIntSize(), this.getIntSize());
+    }
+    
+    public Rectangle getBottomBounds() {
+        return new Rectangle((int)(this.x), (int)(this.y + 10), this.getIntSize(), this.getIntSize());
     }
 
 }
