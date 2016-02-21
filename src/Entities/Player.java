@@ -1,6 +1,6 @@
-package Entities;
+package entities;
 
-import Input.KeyInput;
+import input.KeyInput;
 import gamestates.GameState;
 import java.awt.Color;
 import java.awt.Graphics2D;

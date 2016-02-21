@@ -1,12 +1,9 @@
 package objects;
 
-import Input.KeyInput;
 import gamestates.GameState;
 import java.awt.Color;
 import java.awt.Graphics2D;
-import java.awt.event.KeyEvent;
-import static java.nio.file.Files.size;
-import java.util.Set;
+
 import main.GameObject;
 import main.GamePanel;
 

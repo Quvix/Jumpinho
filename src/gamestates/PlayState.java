@@ -5,13 +5,12 @@
  */
 package gamestates;
 
-import Entities.Player;
-import java.awt.Color;
+import entities.Player;
+
 import java.awt.Graphics2D;
 import main.GamePanel;
 import main.Map;
 import main.ObjectHandler;
-import objects.Tile;
 
 /**
  *
@@ -55,7 +54,7 @@ public class PlayState extends GameState {
     public void init() {
         this.objects = new ObjectHandler();
         objects.player = new Player(gp, this);
-        map = new Map("/res/Maps/map1.map", gp, this);
+        map = new Map("/resources/maps/map1.map", gp, this);
         
         /*this.objects.tiles.add(new Tile(150f, 450f + 128f, gp, this));
         this.objects.tiles.add(new Tile(214f, 450f + 128f, gp, this));
