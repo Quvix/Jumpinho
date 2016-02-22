@@ -16,9 +16,9 @@ import java.awt.image.BufferStrategy;
 
 /**
  *
- * @author Jakub Vitásek & Matěj Stuchlík
+ * @author Jakub Vitásek & Matěj Stuchlík & Martin Omacht
  */
-public class GamePanel extends Canvas implements Runnable {
+public class GameCanvas extends Canvas implements Runnable {
     
     public Dimension size = new Dimension(1280, 720);
     
@@ -28,7 +28,7 @@ public class GamePanel extends Canvas implements Runnable {
     private double interpolation = 0;
     private Frame f;
     
-    public GamePanel (){    
+    public GameCanvas(){
         init();
         start();
     }

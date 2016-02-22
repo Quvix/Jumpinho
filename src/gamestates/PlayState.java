@@ -8,7 +8,7 @@ package gamestates;
 import entities.Player;
 
 import java.awt.Graphics2D;
-import main.GamePanel;
+import main.GameCanvas;
 import main.Map;
 import main.ObjectHandler;
 
@@ -21,7 +21,7 @@ public class PlayState extends GameState {
     private long ticks;
     private Map map;
     
-    public PlayState(GamePanel gp) {
+    public PlayState(GameCanvas gp) {
         super(gp);
     }
     

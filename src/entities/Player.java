@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Set;
 import main.GameObject;
-import main.GamePanel;
+import main.GameCanvas;
 import objects.Tile;
 
 /**
@@ -23,7 +23,7 @@ public class Player extends GameObject {
     private final float maxFallSpeed = 30;
     private final float gravity = 2f;
     
-    public Player(GamePanel gp, GameState gs){
+    public Player(GameCanvas gp, GameState gs){
         super(gp,gs);
         color = new Color(255, 0, 0);
         size = 48;

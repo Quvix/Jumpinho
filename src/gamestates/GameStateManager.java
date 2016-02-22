@@ -2,7 +2,7 @@ package gamestates;
 
 import java.awt.Graphics2D;
 import java.util.Stack;
-import main.GamePanel;
+import main.GameCanvas;
 
 /**
  *
@@ -14,9 +14,9 @@ public class GameStateManager {
     
     public final GameState PLAY_STATE;
     
-     private final GamePanel gp;
+     private final GameCanvas gp;
     
-    public GameStateManager(GamePanel gp){
+    public GameStateManager(GameCanvas gp){
         this.PLAY_STATE = new PlayState(gp);
         
         this.pushState(this.PLAY_STATE);

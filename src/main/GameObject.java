@@ -25,10 +25,10 @@ public abstract class GameObject {
     
     protected float DEFAULT_SPEED = 0;
     
-    protected final GamePanel gp;
+    protected final GameCanvas gp;
     protected final GameState gs;
     
-    public GameObject(GamePanel gp, GameState gs){
+    public GameObject(GameCanvas gp, GameState gs){
         this.gp = gp;
         this.gs = gs;
     }

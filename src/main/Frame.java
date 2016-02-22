@@ -10,7 +10,7 @@ import javax.swing.JFrame;
  */
 public class Frame extends Canvas{
     JFrame frame;
-    public Frame (int width, int height, String title, GamePanel game) {
+    public Frame (int width, int height, String title, GameCanvas game) {
         frame = new JFrame(title);
         frame.setMinimumSize(new Dimension(width / 2, height / 2));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

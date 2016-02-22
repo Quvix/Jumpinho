@@ -18,10 +18,10 @@ public class Map {
     public static float width;
     public static float height;
     
-    protected final GamePanel gp;
+    protected final GameCanvas gp;
     protected final GameState gs;
     
-    public Map(String path, GamePanel gp, GameState gs){
+    public Map(String path, GameCanvas gp, GameState gs){
         this.path = path;
         this.gp = gp;
         this.gs = gs;

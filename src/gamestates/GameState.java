@@ -1,7 +1,7 @@
 package gamestates;
 
 import java.awt.Graphics2D;
-import main.GamePanel;
+import main.GameCanvas;
 import main.ObjectHandler;
 
 /**
@@ -10,14 +10,14 @@ import main.ObjectHandler;
  */
 public abstract class GameState {
     
-    protected GamePanel gp;
+    protected GameCanvas gp;
     public ObjectHandler objects = new ObjectHandler();
     protected boolean paused;
     
     public double xOffset, yOffset;
     
     
-    public GameState(GamePanel gp){
+    public GameState(GameCanvas gp){
         this.gp = gp;
         paused = false;
         
