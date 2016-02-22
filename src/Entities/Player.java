@@ -147,6 +147,17 @@ public class Player extends GameObject {
                         jumping = false; 
                     }
                 }
+                
+                // Pouze Quvixuv test
+                /*if(this.predictPosition(1).intersects(e.getRect())) {
+                    if(getLeftBounds().intersects(e.getRect())) {
+                        if((this.getRect().x) <= (e.getRect().x + e.getRect().width)) {
+                            velX = ((this.x + this.size) - e.getRect().x) + 1;
+                        }
+                    }
+                    
+                    System.out.println("Chyba kolize!");
+                }*/
             }
         }
     }

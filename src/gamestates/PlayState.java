@@ -40,10 +40,11 @@ public class PlayState extends GameState {
         if(paused)
             interpolation = 0;
         
+        this.xOffset = Math.floor(gp.size.width/2 - objects.player.getX() + objects.player.getSize()/2 - objects.player.getVelX() * interpolation);
+        this.objects.player.draw((Graphics2D)g, interpolation);
         map.draw(g, interpolation);
         
-        this.xOffset = Math.floor(gp.size.width/2 - objects.player.getX() + objects.player.getSize()/2 - objects.player.getVelX() * interpolation) ;
-        this.objects.player.draw((Graphics2D)g, interpolation);
+        
     }
     
     @Override
@@ -54,8 +55,9 @@ public class PlayState extends GameState {
      @Override
     public void init() {
         this.objects = new ObjectHandler();
-        objects.player = new Player(gp, this);
+        
         map = new Map("/res/Maps/map1.map", gp, this);
+        objects.player = new Player(gp, this);
         
         /*this.objects.tiles.add(new Tile(150f, 450f + 128f, gp, this));
         this.objects.tiles.add(new Tile(214f, 450f + 128f, gp, this));
