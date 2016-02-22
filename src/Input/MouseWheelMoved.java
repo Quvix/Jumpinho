@@ -1,4 +1,4 @@
-package Input;
+package input;
 
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;

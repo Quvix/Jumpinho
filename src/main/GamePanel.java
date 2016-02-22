@@ -1,8 +1,8 @@
 package main;
 
-import Input.KeyInput;
-import Input.MouseInput;
-import Input.MouseWheelMoved;
+import input.KeyInput;
+import input.MouseInput;
+import input.MouseWheelMoved;
 import gamestates.GameStateManager;
 import java.awt.AlphaComposite;
 import java.awt.Canvas;
@@ -88,7 +88,6 @@ public class GamePanel extends Canvas implements Runnable {
     }
     
     private void gameTick(){
-        
         gsm.tick();
     }
     

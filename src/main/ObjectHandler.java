@@ -1,6 +1,6 @@
 package main;
 
-import Entities.Player;
+import entities.Player;
 import java.util.ArrayList;
 import java.util.List;
 import objects.Tile;
