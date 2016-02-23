@@ -1,9 +1,10 @@
-package main;
+package world;
 
-import entities.Player;
+import world.objects.Player;
+import world.objects.Tile;
+
 import java.util.ArrayList;
 import java.util.List;
-import objects.Tile;
 
 /**
  *

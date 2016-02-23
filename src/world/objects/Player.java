@@ -1,15 +1,12 @@
-package entities;
+package world.objects;
 
 import input.KeyInput;
-import gamestates.GameState;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.util.Set;
-import main.GameObject;
-import main.GameCanvas;
-import objects.Tile;
 
 /**
  *
@@ -23,12 +20,11 @@ public class Player extends GameObject {
     private final float maxFallSpeed = 30;
     private final float gravity = 2f;
     
-    public Player(GameCanvas gp, GameState gs){
-        super(gp,gs);
+    public Player(){
         color = new Color(255, 0, 0);
         size = 48;
-        x = gp.size.width / 2 - size / 2;
-        y = gp.size.height / 2 - size / 2;
+        x = 500;//gp.size.width / 2 - size / 2;
+        y = 500;//gp.size.height / 2 - size / 2;
         DEFAULT_SPEED = 8f;
         this.speed = DEFAULT_SPEED;
     }
@@ -107,13 +103,13 @@ public class Player extends GameObject {
             y = 0;
             velY = 0;
         }*/
-        if(this.y > gp.size.height - this.size) {
+        /*if(this.y > gp.size.height - this.size) {
             /*y = gp.size.height - this.size;
             velY = 0;
-            falling = false;*/
+            falling = false;
             x = gp.size.width / 2 - size / 2;
             y = gp.size.height / 2 - size / 2;
-        }
+        }*/
         
         for(Tile e: gs.objects.tiles){
             if(this.predictPosition(1).intersects(e.getRect())) {

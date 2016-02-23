@@ -1,12 +1,14 @@
-package main;
+package world;
 
 import gamestates.GameState;
-import java.awt.Graphics2D;
+import main.GameCanvas;
+import world.objects.Tile;
+
+import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import objects.Tile;
 
 /**
  *
@@ -18,13 +20,8 @@ public class Map {
     public static float width;
     public static float height;
     
-    protected final GameCanvas gp;
-    protected final GameState gs;
-    
-    public Map(String path, GameCanvas gp, GameState gs){
+    public Map(String path){
         this.path = path;
-        this.gp = gp;
-        this.gs = gs;
         
         loadMap();
     }

@@ -3,13 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package world.objects;
 
-import gamestates.GameState;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 
 /**
  *
@@ -22,20 +18,16 @@ public abstract class GameObject {
     protected Color color;
     protected float size;
     protected float speed;
+    protected boolean dead = false;
     
     protected float DEFAULT_SPEED = 0;
     
-    protected final GameCanvas gp;
-    protected final GameState gs;
-    
-    public GameObject(GameCanvas gp, GameState gs){
-        this.gp = gp;
-        this.gs = gs;
+    public GameObject(){
     }
     
     public void draw(Graphics2D g, double interpolation){
         g.setColor(color);
-        g.fill(getRect(interpolation, gs.xOffset));
+        g.fill(getRect(interpolation));
     }
     
     public Rectangle getCollisionBox(){

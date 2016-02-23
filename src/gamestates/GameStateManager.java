@@ -1,83 +1,75 @@
 package gamestates;
 
 import java.awt.Graphics2D;
-import java.util.Stack;
-import main.GameCanvas;
+import java.util.HashMap;
 
 /**
  *
  * @author Jakub Vitásek & Matěj Stuchlík
+ *
+ * Singleton (existuje pouze jedna instance)
+ *
+ * Přepíná mezi stavama hry
+ *
+ * Příklad užití:
+ * GameStateManager.changeState(GameStateManager.State.PLAYSTATE);
  */
-public class GameStateManager {
-    
-    private final Stack<GameState> states = new Stack();
-    
-    public final GameState PLAY_STATE;
-    
-     private final GameCanvas gp;
-    
-    public GameStateManager(GameCanvas gp){
-        this.PLAY_STATE = new PlayState(gp);
-        
-        this.pushState(this.PLAY_STATE);
-        this.gp = gp;
+public final class GameStateManager {
+
+    public enum State {
+        PLAYSTATE,
+
+        EXIT
     }
+
+    private static GameStateManager instance = new GameStateManager();
+
+    public static GameStateManager getInstance() {
+            return instance;
+        }
+
+    // seznam stavů
+    private HashMap<State, GameState> gamestates = new HashMap<>();
+    // právě používaný stav
+    private GameState currentState;
+
+    private long ticks = 0;
     
+    public GameStateManager(){
+        // Vytvoření všech stavů
+        gamestates.put(State.PLAYSTATE, new PlayState());
+
+        // Nastavení defaultního stavu
+        currentState = gamestates.get(State.PLAYSTATE);
+    }
+
     public void tick(){
-        states.peek().tick();
-    }   
-    
+        ticks++;
+        currentState.tick();
+    }
+
     public void draw(Graphics2D g, double interpolation){
-        states.peek().draw(g, interpolation);
+        currentState.draw(g, interpolation);
     }
-    
-    public void pause(){
-        states.peek().pause();
+
+    /**
+     * @param state one of the states from enum State (eg. GameStateManager.State.PLAYSTATE)
+     * @return newly set GameState
+     */
+    public static GameState changeState(State state){
+        if (state == State.EXIT)
+            System.exit(0);
+
+        GameStateManager gsm = GameStateManager.getInstance();
+
+        gsm.currentState.pause();
+        gsm.currentState = gsm.gamestates.get(state);
+        gsm.currentState.resume();
+
+        return gsm.currentState;
     }
-    
-    public void resume(){
-        states.peek().resume();
-    }
-    
-    public void restart(){
-        states.peek().restart();
-    }
-    
-    public void init(){
-        states.peek().init();
-    }
-    
-    public void pushState(GameState s){
-        if(!states.empty())
-            states.peek().pause();
-        states.push(s);
-        states.peek().init();
-    }
-    
-    public void pushState(GameState s, Object o){
-        if(!states.empty())
-            states.peek().pause();
-        states.push(s);
-        states.peek().init(o);
-    }
-    
-    public void popCurrentState(){
-        states.pop();
-        if(!states.empty())
-            states.peek().resume();
-    }
-    
-    public GameState getCurrentState(){
-        return states.peek();
-    }
-    
-    public void prepareState(GameState s){
-        s.init();
-        s.pause();
-    }
-    
-    public void resume(GameState s){
-        states.push(s);
-        resume();
+
+    public static long getTicks(){
+        return GameStateManager.getInstance().ticks;
     }
 }
