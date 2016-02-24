@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package main;
+package world.objects;
 
-import gamestates.GameState;
-import java.awt.AlphaComposite;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import world.World;
+
+import java.awt.*;
 
 /**
  *
@@ -22,20 +20,18 @@ public abstract class GameObject {
     protected Color color;
     protected float size;
     protected float speed;
+    private boolean dead = false;
+    protected World world;
     
     protected float DEFAULT_SPEED = 0;
     
-    protected final GameCanvas gp;
-    protected final GameState gs;
-    
-    public GameObject(GameCanvas gp, GameState gs){
-        this.gp = gp;
-        this.gs = gs;
+    public GameObject(World world){
+        this.world = world;
     }
     
     public void draw(Graphics2D g, double interpolation){
         g.setColor(color);
-        g.fill(getRect(interpolation, gs.xOffset));
+        g.fill(world.getCam().rectToScreenCoords(getRect(interpolation)));
     }
     
     public Rectangle getCollisionBox(){
@@ -48,10 +44,6 @@ public abstract class GameObject {
     
     public Rectangle getRect(double i){
         return new Rectangle((int)(x + (velX * i)), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
-    }
-    
-    public Rectangle getRect(double i, double xOffset){
-        return new Rectangle((int)(x + (velX * i) + xOffset), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
     }
     
     public void tick(){        
@@ -157,5 +149,13 @@ public abstract class GameObject {
      */
     public float getDEFAULT_SPEED() {
         return DEFAULT_SPEED;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }

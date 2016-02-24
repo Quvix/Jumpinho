@@ -1,16 +1,11 @@
 package main;
 
+import gamestates.GameStateManager;
 import input.KeyInput;
 import input.MouseInput;
 import input.MouseWheelMoved;
-import gamestates.GameStateManager;
-import java.awt.AlphaComposite;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 
@@ -19,8 +14,11 @@ import java.awt.image.BufferStrategy;
  * @author Jakub Vitásek & Matěj Stuchlík & Martin Omacht
  */
 public class GameCanvas extends Canvas implements Runnable {
+
+    // Referenční rozlišení ve kterém se hra renderuje
+    public static final int REF_WIDTH = 1280, REF_HEIGHT = 720;
     
-    public Dimension size = new Dimension(1280, 720);
+    public Dimension size = new Dimension(REF_WIDTH, REF_HEIGHT);
     
     public GameStateManager gsm;
     private Thread thread;
@@ -47,7 +45,7 @@ public class GameCanvas extends Canvas implements Runnable {
     }
     
     private void start(){
-        this.gsm = new GameStateManager(this);
+        this.gsm = GameStateManager.getInstance();
         thread = new Thread(this);
         thread.start();
     }

@@ -1,15 +1,14 @@
-package entities;
+package world.objects;
 
 import input.KeyInput;
-import gamestates.GameState;
+import world.World;
+
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.Set;
-import main.GameObject;
-import main.GameCanvas;
-import objects.Tile;
 
 /**
  *
@@ -23,12 +22,12 @@ public class Player extends GameObject {
     private final float maxFallSpeed = 30;
     private final float gravity = 2f;
     
-    public Player(GameCanvas gp, GameState gs){
-        super(gp,gs);
+    public Player(World world){
+        super(world);
         color = new Color(255, 0, 0);
         size = 48;
-        x = gp.size.width / 2 - size / 2;
-        y = gp.size.height / 2 - size / 2;
+        x = 500;//gp.size.width / 2 - size / 2;
+        y = 200;//gp.size.height / 2 - size / 2;
         DEFAULT_SPEED = 8f;
         this.speed = DEFAULT_SPEED;
     }
@@ -107,41 +106,45 @@ public class Player extends GameObject {
             y = 0;
             velY = 0;
         }*/
-        if(this.y > gp.size.height - this.size) {
+        /*if(this.y > gp.size.height - this.size) {
             /*y = gp.size.height - this.size;
             velY = 0;
-            falling = false;*/
+            falling = false;
             x = gp.size.width / 2 - size / 2;
             y = gp.size.height / 2 - size / 2;
-        }
+        }*/
+
+        Rectangle sweptRect = this.getRect();
+        sweptRect.add(this.predictPosition(1));
+        List<Rectangle> collidingBoxes = world.getMap().getCollidingRects(sweptRect);
         
-        for(Tile e: gs.objects.tiles){
-            if(this.predictPosition(1).intersects(e.getRect())) {
-                if((this.getRect().x + 10) >= (e.getRect().x + e.getRect().width)) {
-                    if(getLeftBounds().intersects(e.getRect())) {
-                        velX = ((e.getRect().x + e.getRect().width) - this.getRect().x);
+        for(Rectangle r: collidingBoxes){
+            if(this.predictPosition(1).intersects(r)) {
+                if((this.x + 10) >= (r.x + r.width)) {
+                    if(getLeftBounds().intersects(r)) {
+                        velX = ((r.x + r.width) - this.x);
                         leftCollisionNextTick = true;
                     }
                 }
                 
-                if((this.getRect().x + this.getRect().width - 10) <= e.getRect().x) {
-                    if(getRightBounds().intersects(e.getRect())) {
-                        velX = (e.getRect().x - (this.x + this.size));
+                if((this.x + this.getRect().width - 10) <= r.x) {
+                    if(getRightBounds().intersects(r)) {
+                        velX = (r.x - (this.x + this.size));
                         rightCollisionNextTick = true;
                     }
                 }
                 
-                if((this.getRect().y + this.getRect().height - 10) <= e.getRect().y) {
-                    if(getBottomBounds().intersects(e.getRect())) {
-                        velY = (e.getRect().y - (this.y + this.size));
+                if((this.y + this.getRect().height - 10) <= r.y) {
+                    if(getBottomBounds().intersects(r)) {
+                        velY = (r.y - (this.y + this.size));
                         bottomCollisionNextTick = true;
                         falling = false;
                     }
                 }
                 
-                if((this.getRect().y + 10) >= (e.getRect().y + e.getRect().height)) {
-                    if(getTopBounds().intersects(e.getRect())) {
-                       velY = ((e.getRect().y + e.getRect().height) - this.getRect().y);
+                if((this.y + 10) >= (r.y + r.height)) {
+                    if(getTopBounds().intersects(r)) {
+                       velY = ((r.y + r.height) - this.y);
                         topCollisionNextTick = true;
                         falling = true;
                         jumping = false; 
@@ -149,10 +152,10 @@ public class Player extends GameObject {
                 }
                 
                 // Pouze Quvixuv test
-                /*if(this.predictPosition(1).intersects(e.getRect())) {
-                    if(getLeftBounds().intersects(e.getRect())) {
-                        if((this.getRect().x) <= (e.getRect().x + e.getRect().width)) {
-                            velX = ((this.x + this.size) - e.getRect().x) + 1;
+                /*if(this.predictPosition(1).intersects(e)) {
+                    if(getLeftBounds().intersects(e)) {
+                        if((this.x) <= (e.x + e.width)) {
+                            velX = ((this.x + this.size) - e.x) + 1;
                         }
                     }
                     
