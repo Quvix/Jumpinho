@@ -25,6 +25,8 @@ public final class GameStateManager {
     private static GameStateManager instance = new GameStateManager();
 
     public static GameStateManager getInstance() {
+            if(instance == null)
+                instance = new GameStateManager();
             return instance;
         }
 
@@ -35,7 +37,8 @@ public final class GameStateManager {
 
     private long ticks = 0;
     
-    public GameStateManager(){
+    private GameStateManager(){
+
         // Vytvoření všech stavů
         gamestates.put(State.PLAYSTATE, new PlayState());
 

@@ -5,6 +5,8 @@
  */
 package world.objects;
 
+import world.World;
+
 import java.awt.*;
 
 /**
@@ -19,15 +21,17 @@ public abstract class GameObject {
     protected float size;
     protected float speed;
     private boolean dead = false;
+    protected World world;
     
     protected float DEFAULT_SPEED = 0;
     
-    public GameObject(){
+    public GameObject(World world){
+        this.world = world;
     }
     
     public void draw(Graphics2D g, double interpolation){
         g.setColor(color);
-        g.fill(getRect(interpolation));
+        g.fill(world.getCam().rectToScreenCoords(getRect(interpolation)));
     }
     
     public Rectangle getCollisionBox(){
@@ -40,10 +44,6 @@ public abstract class GameObject {
     
     public Rectangle getRect(double i){
         return new Rectangle((int)(x + (velX * i)), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
-    }
-    
-    public Rectangle getRect(double i, double xOffset){
-        return new Rectangle((int)(x + (velX * i) + xOffset), (int) (y + (velY * i)), this.getIntSize(), this.getIntSize());
     }
     
     public void tick(){        

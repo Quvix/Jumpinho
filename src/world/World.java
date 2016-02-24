@@ -9,19 +9,35 @@ public class World {
 
     private Map map;
     private Camera cam;
+    private ObjectHandler objHandler;
 
     public World(String mapName){
-        this.map = new Map(mapName);
+        this.objHandler = new ObjectHandler();
+        this.map = new Map(this, mapName);
         this.cam = new Camera();
     }
 
     public void tick(){
-        cam.tick();
-        map.tick();
+        getCam().tick();
+        getMap().tick();
+        getObjHandler().tick();
     }
 
     public void draw(Graphics2D g, double interpolation){
-        cam.draw(g, interpolation);
-        map.draw(g, interpolation);
+        getCam().draw(g, interpolation);
+        getMap().draw(g, interpolation);
+        getObjHandler().draw(g, interpolation);
+    }
+
+    public Map getMap() {
+        return map;
+    }
+
+    public Camera getCam() {
+        return cam;
+    }
+
+    public ObjectHandler getObjHandler() {
+        return objHandler;
     }
 }

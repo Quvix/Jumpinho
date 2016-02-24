@@ -45,7 +45,7 @@ public class GameCanvas extends Canvas implements Runnable {
     }
     
     private void start(){
-        this.gsm = new GameStateManager();
+        this.gsm = GameStateManager.getInstance();
         thread = new Thread(this);
         thread.start();
     }

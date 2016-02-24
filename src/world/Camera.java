@@ -40,13 +40,36 @@ public class Camera {
         return new Point2D.Float(x - this.x, y - this.y);
     }
 
+    public float screenToWorldX(float x){
+        return x + this.x;
+    }
+
+    public float worldToScreenX(float x){
+        return x - this.x;
+    }
+
+    public float screenToWorldY(float y){
+        return y + this.y;
+    }
+
+    public float worldToScreenY(float y){
+        return y - this.y;
+    }
+
+    public Rectangle rectToScreenCoords(Rectangle rect){
+        rect.x -= x;
+        rect.y -= y;
+
+        return rect;
+    }
+
     public void tick(){}
 
     public void draw(Graphics2D g, double interpolation){
         if (target != null) {
             Rectangle rect = target.getRect(interpolation);
-            this.x = rect.x;
-            this.y = rect.y;
+            this.x = rect.x - (width/2);
+            this.y = rect.y - (heigth/2);
         }
     }
 }

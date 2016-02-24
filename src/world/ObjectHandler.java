@@ -5,16 +5,14 @@ import world.objects.Player;
 import world.objects.Tile;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.*;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  *
  */
 public class ObjectHandler {
-    private List<Tile> tiles = new ArrayList();
+    private HashMap<Short, Tile> tiles = new HashMap<>();
     private List<GameObject> objects = new ArrayList<>();
     private List<GameObject> toAdd = new ArrayList<>();
 
@@ -57,6 +55,11 @@ public class ObjectHandler {
     }
 
     public void addTile(Tile tile){
-        tiles.add(tile);
+        if (tiles.get(Short.valueOf(tile.ID)) == null)
+            tiles.put(tile.ID, tile);
+    }
+
+    public Tile getTileByID(short id){
+        return tiles.get(Short.valueOf(id));
     }
 }
