@@ -15,25 +15,25 @@ import java.io.InputStreamReader;
  * @author test
  */
 public class Map {
+
+    private World world;
+
+    private int width;
+    private int height;
     
-    private String path;
-    public static float width;
-    public static float height;
-    
-    public Map(String path){
-        this.path = path;
-        
-        loadMap();
+    public Map(World world, String path){
+        this.world = world;
+        loadMap(path);
     }
     
-    public void loadMap() {
+    public void loadMap(String path) {
         InputStream is = this.getClass().getResourceAsStream(path);
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
         
         try {
             width = Integer.parseInt(br.readLine());
             height = Integer.parseInt(br.readLine());
-            
+
             for (int y = 0; y < height; y++) {
                 String line = br.readLine();
                 String[] tokens = line.split("\\s+");

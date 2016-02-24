@@ -69,6 +69,10 @@ public final class GameStateManager {
         return gsm.currentState;
     }
 
+    public static GameState getCurrentState(){
+        return GameStateManager.getInstance().currentState;
+    }
+
     public static long getTicks(){
         return GameStateManager.getInstance().ticks;
     }

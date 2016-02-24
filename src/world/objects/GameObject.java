@@ -18,7 +18,7 @@ public abstract class GameObject {
     protected Color color;
     protected float size;
     protected float speed;
-    protected boolean dead = false;
+    private boolean dead = false;
     
     protected float DEFAULT_SPEED = 0;
     
@@ -149,5 +149,13 @@ public abstract class GameObject {
      */
     public float getDEFAULT_SPEED() {
         return DEFAULT_SPEED;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 }
