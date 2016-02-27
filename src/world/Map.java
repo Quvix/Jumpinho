@@ -1,8 +1,5 @@
 package world;
 
-import com.sun.javafx.geom.Vec2d;
-import gamestates.GameState;
-import main.GameCanvas;
 import world.objects.Tile;
 
 import java.awt.*;
