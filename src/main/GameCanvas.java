@@ -25,6 +25,7 @@ public class GameCanvas extends Canvas implements Runnable {
     public static boolean paused = false;
     private double interpolation = 0;
     private Frame f;
+    private Drawer g;
     
     public GameCanvas(){
         init();
@@ -42,6 +43,8 @@ public class GameCanvas extends Canvas implements Runnable {
         this.addKeyListener(new KeyInput());
         this.addMouseListener(new MouseInput());
         this.addMouseMotionListener(new MouseInput());
+
+        g = new Drawer();
     }
     
     private void start(){
@@ -90,53 +93,30 @@ public class GameCanvas extends Canvas implements Runnable {
     }
     
     private void gameRender(){   
-        BufferStrategy bs = this.getBufferStrategy();
-        if(bs == null) {
-            this.createBufferStrategy(3);
+        if(!g.createGraphics(this))
             return;
-        }
         
-        Graphics2D g = (Graphics2D) bs.getDrawGraphics();
-        
-        g.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 14));
+        g.setFont(Drawer.FontE.SANS_SERIF);
         
         g.setColor(Color.BLACK);
         g.fillRect(0, 0, this.getWidth(), this.getHeight());
         
-        AffineTransform at = new AffineTransform();
-        double scale = Math.min(this.getWidth() / this.size.getWidth(), this.getHeight() / this.size.getHeight());
-        double xOff = (this.getWidth() - this.size.width * scale) / 2f;
-        if(this.getWidth() / this.size.getWidth() < this.getHeight() / this.size.getHeight()){
-            xOff = 0;
-        }
-        at.translate(xOff, 0);
-        at.scale(scale, scale);
-        g.setTransform(at);
-        
-        g.setColor(Color.WHITE);
-        g.fillRect(0, 0, this.size.width, this.size.height);
-       
-        
-        //g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        
-        g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        
-        g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-        //g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        g.scaleToWindow(this);
+
+        g.clear(this);
+
+        g.setAntialiasing(false);
+        g.setTextAntialiasing(true);
+        g.setQuallityRender(true);
         
         gsm.draw(g, interpolation);
-        
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-        g.setColor(Color.BLACK);
-        g.fillRect(-500, 0, 500, this.size.height);
-        g.fillRect(this.size.width, 0, 500, this.size.height);
-        g.fillRect(-500, -1000, size.width + 500, 0);
-        g.fillRect(-500, this.size.height, size.width + 500, 1500);
+
+        g.drawBorders(this);
         
         this.frames++;
-        
-        g.dispose();
-        bs.show();
+
+        g.show();
     }
-    
+
+
 }

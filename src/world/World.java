@@ -1,5 +1,7 @@
 package world;
 
+import main.Drawer;
+
 import java.awt.Graphics2D;
 
 /**
@@ -23,7 +25,7 @@ public class World {
         getObjHandler().tick();
     }
 
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         getCam().draw(g, interpolation);
         getMap().draw(g, interpolation);
         getObjHandler().draw(g, interpolation);

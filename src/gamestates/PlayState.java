@@ -1,5 +1,6 @@
 package gamestates;
 
+import main.Drawer;
 import world.World;
 import world.objects.Player;
 
@@ -29,7 +30,7 @@ public class PlayState extends GameState {
     }
     
     @Override
-    public void draw(Graphics2D g, double interpolation) {
+    public void draw(Drawer g, double interpolation) {
         if(paused)
             interpolation = 0;
         world.draw(g, interpolation);

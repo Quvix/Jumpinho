@@ -1,5 +1,6 @@
 package world;
 
+import main.Drawer;
 import world.objects.Tile;
 
 import java.awt.*;
@@ -63,7 +64,7 @@ public class Map {
 
     }
     
-    public void draw(Graphics2D g, double interpolation) {
+    public void draw(Drawer g, double interpolation) {
         for(int x = 0; x < width; x++){
             for(int y = 0; y < height; y++){
                 if (mapGrid[x][y] != 0)

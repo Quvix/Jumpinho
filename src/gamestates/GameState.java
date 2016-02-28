@@ -1,5 +1,7 @@
 package gamestates;
 
+import main.Drawer;
+
 import java.awt.Graphics2D;
 
 /**
@@ -15,7 +17,7 @@ public abstract class GameState {
     }
     
     public abstract void tick();
-    public abstract void draw(Graphics2D g, double interpolation);
+    public abstract void draw(Drawer g, double interpolation);
 
     public void restart(){
         init();

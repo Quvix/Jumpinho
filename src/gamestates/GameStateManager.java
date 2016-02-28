@@ -1,5 +1,7 @@
 package gamestates;
 
+import main.Drawer;
+
 import java.awt.Graphics2D;
 import java.util.HashMap;
 
@@ -51,7 +53,7 @@ public final class GameStateManager {
         currentState.tick();
     }
 
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         currentState.draw(g, interpolation);
     }
 

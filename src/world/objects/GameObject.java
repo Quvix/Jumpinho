@@ -5,9 +5,12 @@
  */
 package world.objects;
 
+import main.Drawer;
+import utils.Timer;
 import world.World;
 
 import java.awt.*;
+import java.util.HashMap;
 
 /**
  *
@@ -22,6 +25,7 @@ public abstract class GameObject {
     protected float speed;
     private boolean dead = false;
     protected World world;
+    protected HashMap<String, Timer> timers = new HashMap<>();
     
     protected float DEFAULT_SPEED = 0;
     
@@ -29,7 +33,7 @@ public abstract class GameObject {
         this.world = world;
     }
     
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         g.setColor(color);
         g.fill(world.getCam().rectToScreenCoords(getRect(interpolation)));
     }

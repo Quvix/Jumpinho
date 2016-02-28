@@ -1,5 +1,6 @@
 package world;
 
+import main.Drawer;
 import world.objects.GameObject;
 import world.objects.Player;
 import world.objects.Tile;
@@ -35,7 +36,7 @@ public class ObjectHandler {
         toAdd.clear();
     }
 
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         isIterating = true;
 
         ListIterator<GameObject> it = objects.listIterator();

@@ -1,5 +1,6 @@
 package world.objects;
 
+import main.Drawer;
 import world.World;
 
 import java.awt.Color;
@@ -27,7 +28,7 @@ public class Tile extends GameObject {
         this.solid = solid;
     }
     
-    public void drawAt(Graphics2D g, double interpolation, int x, int y){
+    public void drawAt(Drawer g, double interpolation, int x, int y){
         this.x = x;
         this.y = y;
 

@@ -1,6 +1,7 @@
 package world.objects;
 
 import input.KeyInput;
+import main.Drawer;
 import world.World;
 
 import java.awt.Color;
@@ -41,7 +42,7 @@ public class Player extends GameObject {
         Set<Integer> key = KeyInput.pressed;
         if(key.contains(KeyEvent.VK_UP)) {
             if(!jumping && !falling) {
-                velY = (float)jumpSpeed;
+                velY = jumpSpeed;
                 jumping = true;
             }
         }
@@ -166,7 +167,7 @@ public class Player extends GameObject {
     }
     
     @Override
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         
         super.draw(g, interpolation);
         

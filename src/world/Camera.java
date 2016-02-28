@@ -1,5 +1,6 @@
 package world;
 
+import main.Drawer;
 import main.GameCanvas;
 import world.objects.GameObject;
 
@@ -65,7 +66,7 @@ public class Camera {
 
     public void tick(){}
 
-    public void draw(Graphics2D g, double interpolation){
+    public void draw(Drawer g, double interpolation){
         if (target != null) {
             Rectangle rect = target.getRect(interpolation);
             this.x = rect.x - (width/2);
