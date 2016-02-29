@@ -31,19 +31,20 @@ public class Enemy extends GameObject {
         y = 300;//gp.size.height / 2 - size / 2;
         DEFAULT_SPEED = 8f;
         this.speed = DEFAULT_SPEED;
+        velX = 3;
     }
     
     @Override
     public void tick(){
-        this.x += velX + 3;
+        this.x += velX;
         
          if(leftCollisionNextTick) {
-            velX = 0;
+            velX = 3;
             leftCollisionNextTick = false;
         }
         
         if(rightCollisionNextTick) {
-            velX = -6;
+            velX = -3;
             rightCollisionNextTick = false;
         }
         
