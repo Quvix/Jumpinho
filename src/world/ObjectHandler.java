@@ -3,6 +3,7 @@ package world;
 import main.Drawer;
 import world.objects.GameObject;
 import world.objects.Player;
+import world.objects.Enemy;
 import world.objects.Tile;
 
 import java.awt.*;

@@ -3,6 +3,7 @@ package gamestates;
 import main.Drawer;
 import world.World;
 import world.objects.Player;
+import world.objects.Enemy;
 
 import java.awt.Graphics2D;
 
@@ -17,8 +18,10 @@ public class PlayState extends GameState {
     public PlayState() {
         super();
         world = new World("map1");
-        Player player = new Player(world);
+        Player player = new Player(world);  
+        Enemy enemy = new Enemy(world);
         world.getObjHandler().addObject(player);
+        world.getObjHandler().addObject(enemy);
         world.getCam().setTarget(player);
     }
     
